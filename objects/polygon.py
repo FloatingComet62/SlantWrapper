@@ -1,6 +1,5 @@
 from pygame import Surface, draw
-from objects import Base
-from util import Position, Color
+from util import Position, Color, DisplayMode
 
 
 class Polygon:
@@ -13,7 +12,7 @@ class Polygon:
         self.color = color
         self.thickness = thickness
 
-    def display(self, screen: Surface):
+    def display(self, screen: Surface, _: DisplayMode):
         vertexes = []
         for position in self.positions:
             vertexes.append(position.to_tuple())

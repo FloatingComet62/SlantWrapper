@@ -1,6 +1,6 @@
 from pygame import Surface, draw, Rect
 from objects import Base
-from util import Color, Position, Dimension
+from util import Color, Position, Dimension, DisplayMode
 
 
 class Rectangle(Base):
@@ -11,13 +11,13 @@ class Rectangle(Base):
 
         self.dimension = dimension
 
-    def display(self, screen: Surface):
+    def display(self, screen: Surface, display_mode: DisplayMode):
         draw.rect(
             screen,
             self.color.toRGB(),
             Rect(
-                self.position.x,
-                self.position.y,
+                self.position.x - (self.dimension.width/2 if display_mode else 0),
+                self.position.y - (self.dimension.height/2 if display_mode else 0),
                 self.dimension.width,
                 self.dimension.height
             )

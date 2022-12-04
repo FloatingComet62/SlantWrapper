@@ -1,5 +1,6 @@
+from typing import Type
 from pygame import font, Surface
-from util import Position, Color
+from util import Position, Color, DisplayMode
 
 
 class Text:
@@ -23,7 +24,7 @@ class Text:
         self.color = color
         self.font = font_name
 
-    def display(self, screen: Surface):
+    def display(self, screen: Surface, _: Type[DisplayMode]):
         font_render = font.Font(self.font, self.size)
         text = font_render.render(self.string, True, self.color.toRGB())
         rect = text.get_rect()

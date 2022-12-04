@@ -1,4 +1,5 @@
 from math import pi
+from enum import Enum
 
 
 class Color:
@@ -78,3 +79,8 @@ class Dimension:
     def __init__(self, width: float, height: float):
         self.width = width
         self.height = height
+
+
+class DisplayMode(Enum):
+    CORNER = False
+    CENTER = True

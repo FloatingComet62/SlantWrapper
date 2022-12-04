@@ -1,6 +1,6 @@
 from pygame import Surface, draw
 from objects import Base
-from util import Color, Position
+from util import Color, Position, DisplayMode
 
 
 class Circle(Base):
@@ -13,11 +13,14 @@ class Circle(Base):
         self.radius = radius
         self.thickness = thickness
 
-    def display(self, screen: Surface):
+    def display(self, screen: Surface, display_mode: DisplayMode):
         draw.circle(
             screen,
             self.color.toRGB(),
-            (self.position.x, self.position.y),
+            (
+                self.position.x - (0 if display_mode == DisplayMode.CENTER else self.radius),
+                self.position.y - (0 if display_mode == DisplayMode.CENTER else self.radius)
+            ),
             self.radius,
             self.thickness
         )

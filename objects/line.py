@@ -1,5 +1,5 @@
 from pygame import Surface, draw
-from util import Color, Position
+from util import Color, Position, DisplayMode
 
 
 class Line:
@@ -14,7 +14,7 @@ class Line:
         self.color = color
         self.thickness = thickness
 
-    def display(self, screen: Surface):
+    def display(self, screen: Surface, _: DisplayMode):
         draw.line(
             screen,
             self.color.toRGB(),

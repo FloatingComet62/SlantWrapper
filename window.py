@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, Type
 import pygame
 
 from objects.aaline import AALine
@@ -10,7 +10,7 @@ from objects.polygon import Polygon
 from objects.rectangle import Rectangle
 from objects.text import Text
 
-from util import Dimension, Color
+from util import Dimension, Color, DisplayMode
 
 
 class Window:
@@ -21,11 +21,20 @@ class Window:
     clock: pygame.time
     fps: int
     running: bool
+    display_mode: DisplayMode
     mouse: tuple[int, int]
     objs: list[Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text]]
 
-    def __init__(self, name: str, dimensions: Dimension, background_color: Color, fps: int):
+    def __init__(
+        self,
+        name: str,
+        display_mode: DisplayMode,
+        dimensions: Dimension,
+        background_color: Color,
+        fps: int
+    ):
         self.name = name
+        self.display_mode = display_mode
         self.dimensions = dimensions
         self.background_color = background_color
         self.screen = pygame.display.set_mode([dimensions.width, dimensions.height])
@@ -51,7 +60,7 @@ class Window:
                 break
 
             for obj in self.objs:
-                obj.display(self.screen)
+                obj.display(self.screen, self.display_mode)
 
             self.clock.tick(self.fps)
             pygame.display.flip()
