@@ -16,8 +16,8 @@ class Rectangle(Base):
             screen,
             self.color.toRGB(),
             Rect(
-                self.position.x - (self.dimension.width/2 if display_mode else 0),
-                self.position.y - (self.dimension.height/2 if display_mode else 0),
+                self.position.x - (self.dimension.width/2 if display_mode == DisplayMode.CENTER else 0),
+                self.position.y - (self.dimension.height/2 if display_mode == DisplayMode.CENTER else 0),
                 self.dimension.width,
                 self.dimension.height
             )

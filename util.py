@@ -32,12 +32,14 @@ class Angle:
     radian: float
 
     def __init__(self, **kwargs):
-        if kwargs.get("degree"):  # <<<<<
-            self.degree = kwargs["degree"]
-            self.radian = self.deg_to_radian(kwargs["degree"])
-        elif kwargs.get("radian"):  # <<<<<
-            self.radian = kwargs["radian"]
-            self.degree = self.radian_to_deg(kwargs["radian"])
+        deg = kwargs.get("degree")
+        rad = kwargs.get("radian")
+        if deg:  # <<<<<
+            self.degree = deg
+            self.radian = self.deg_to_radian(deg)
+        elif rad:  # <<<<<
+            self.radian = rad
+            self.degree = self.radian_to_deg(rad)
         else:
             print("Please specify either \"degree\" or \"radian\"")
             exit(1)

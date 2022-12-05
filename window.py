@@ -1,14 +1,7 @@
-from typing import Union, Type
+from typing import Union
 import pygame
 
-from objects.aaline import AALine
-from objects.arc import Arc
-from objects.circle import Circle
-from objects.ellipse import Ellipse
-from objects.line import Line
-from objects.polygon import Polygon
-from objects.rectangle import Rectangle
-from objects.text import Text
+from objects import AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image
 
 from util import Dimension, Color, DisplayMode
 
@@ -23,7 +16,8 @@ class Window:
     running: bool
     display_mode: DisplayMode
     mouse: tuple[int, int]
-    objs: list[Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text]]
+    keys: [pygame.key]
+    objs: list[Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image]]
 
     def __init__(
         self,
@@ -66,9 +60,9 @@ class Window:
             pygame.display.flip()
             pygame.display.set_caption(self.name)
 
-    def addObj(self, obj: Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text]):
+    def addObj(self, obj: Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image]):
         self.objs.append(obj)
 
     def addObjs(self, objs: list[Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text]]):
         for obj in objs:
-            self.objs.append(obj)
+            self.addObj(obj)
