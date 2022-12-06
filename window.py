@@ -39,6 +39,7 @@ class Window:
         self.objs = []
         self.keys = []
 
+        pygame.mixer.init(44100, 16, 2, 4096)
         pygame.init()
 
     def display(self, main):
@@ -59,6 +60,9 @@ class Window:
             self.clock.tick(self.fps)
             pygame.display.flip()
             pygame.display.set_caption(self.name)
+
+        pygame.mixer.quit()
+        pygame.quit()
 
     def addObj(self, obj: Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image]):
         self.objs.append(obj)

@@ -18,3 +18,5 @@ from .polygon import Polygon
 from .rectangle import Rectangle
 from .text import Text
 from .image import Image
+from .sound import Sound
+from .background_sound import BackgroundSound

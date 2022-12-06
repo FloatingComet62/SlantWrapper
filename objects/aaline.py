@@ -1,5 +1,5 @@
 from pygame import Surface, draw
-from objects.line import Line
+from .line import Line
 from util import Position, Color, DisplayMode
 
 
