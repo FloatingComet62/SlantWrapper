@@ -1,18 +1,19 @@
-from os import getcwd
-from objects import Image, BackgroundSound
+from objects.custom import Triangle
 from window import Window
-from util import Dimension, Color, Position, DisplayMode
+from util import Dimension, Color, Angle, DisplayMode, Position, Side
 
 window = Window("Window", DisplayMode.CENTER, Dimension(500, 500), Color.from_hex("#303030"), 60)
 # obj = Rectangle(Position(250, 250), Dimension(50, 50), Color.from_hex("f57b42"))
-img = Image(Position(50, 50), Dimension(50, 50), f"{getcwd()}/py.png")
-sound = BackgroundSound("bg_music.wav")
-sound.play()
-window.addObj(img)
-
+obj = Triangle(
+    Side(Position(250, 250), Angle(degree=60), 50),
+    Side(angle=Angle(degree=50), length=60),
+    Color.from_hex("#f57b42")
+)
+window.addObj(obj)
 
 def main():
-    img.position = Position.from_tuple(window.mouse)
+    obj.side_1.angle = Angle(degree=(obj.side_1.angle.degree - 1))
+    obj.draw()
     return True
 
 

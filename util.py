@@ -34,10 +34,10 @@ class Angle:
     def __init__(self, **kwargs):
         deg = kwargs.get("degree")
         rad = kwargs.get("radian")
-        if deg:  # <<<<<
+        if not deg is None:  # <<<<<
             self.degree = deg
             self.radian = self.deg_to_radian(deg)
-        elif rad:  # <<<<<
+        elif not rad is None:  # <<<<<
             self.radian = rad
             self.degree = self.radian_to_deg(rad)
         else:
@@ -86,3 +86,14 @@ class Dimension:
 class DisplayMode(Enum):
     CORNER = False
     CENTER = True
+
+
+class Side:
+    position: Position
+    length: float
+    angle: Angle
+
+    def __init__(self, position: Position = Position(0, 0), angle: Angle = Angle(degree=0), length: float = 0):
+        self.position = position
+        self.angle = angle
+        self.length = length
