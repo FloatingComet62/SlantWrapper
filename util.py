@@ -56,6 +56,10 @@ class Angle:
         self.degree += degree
         self.radian = self.deg_to_radian(self.degree)
 
+    def offset_new(self, degree: float):
+        return Angle(degree=(self.degree + degree))
+
+
 class Position:
     x: float
     y: float
@@ -75,6 +79,9 @@ class Position:
         self.x += offset[0]
         self.y += offset[1]
         return self  # returning self to allow chaining
+
+    def offset_new(self, *offset):
+        return Position.from_tuple((self.x + offset[0], self.y + offset[1]))
 
 
 class Dimension:

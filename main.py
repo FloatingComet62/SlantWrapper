@@ -1,20 +1,15 @@
-from objects import Triangle, Square
+from objects import Rectangle
 from window import Window
-from util import Dimension, Color, Angle, DisplayMode, Position, Side
+from util import Dimension, Color, DisplayMode, Position
 
 window = Window("Window", DisplayMode.CENTER, Dimension(500, 500), Color.from_hex("#303030"), 420)
-# obj = Rectangle(Position(250, 250), Dimension(50, 10), Color.from_hex("f57b42"))
-tri = Triangle(
-    Side(Position(250, 250), Angle(degree=60), 50),
-    Side(angle=Angle(degree=50), length=60),
-    Color.from_hex("#f57b42")
-)
-sqr = Square(Position(250, 250), 50, Color.from_hex("#32a852"))
-window.addObjs([tri, sqr])
+obj = Rectangle(Position(250, 250), Dimension(10, 50), Color.from_hex("f57b42"))
+window.addObj(obj)
+
 
 def main():
-    sqr.position = Position.from_tuple(window.mouse)
-    tri.side_1.angle.offset(-1)
+    obj.center = Position.from_tuple(window.mouse)
+    obj.rotation.offset(1)
     return True
 
 
