@@ -37,12 +37,13 @@ class Window:
         self.fps = fps
         self.running = True
         self.mouse = (0, 0)
+        self.event_handlers = []
         self.objs = []
         self.keys = []
 
         def handler():
             self.running = False
-        self.add_event_handler(pygame.KEYUP, handler)
+        self.add_event_handler(pygame.QUIT, handler)
 
         pygame.mixer.init(44100, 16, 2, 4096)
         pygame.init()
@@ -68,7 +69,7 @@ class Window:
 
         for event in self.events:
             for handler in self.event_handlers:
-                if event == handler[0]:
+                if event.type == handler[0]:
                     handler[1]()
 
     def display_obj(self):
