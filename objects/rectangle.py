@@ -28,7 +28,7 @@ class Rectangle(Polygon):
             radian=atan(self.dimension.height / self.dimension.width)
         )
         self.draw()
-        super().__init__([self.vertex1, self.vertex2, self.vertex3, self.vertex4], color)
+        super().__init__(self.positions, color)
 
     def draw(self):
         self.diagonal_length = sqrt(sqr(self.dimension.height) + sqr(self.dimension.width))

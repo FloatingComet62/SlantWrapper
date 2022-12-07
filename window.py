@@ -5,8 +5,10 @@ from util import Dimension, Color, DisplayMode
 
 Objects: Union = Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image, Triangle, Square]
 
+
 class Window:
     name: str
+    icon: pygame.Surface
     dimensions: Dimension
     background_color: Color
     screen: pygame.Surface
@@ -25,8 +27,9 @@ class Window:
         name: str,
         display_mode: DisplayMode,
         dimensions: Dimension,
-        background_color: Color,
-        fps: int
+        background_color: Color = Color.from_hex("#151515"),
+        fps: int = 60,
+        icon: pygame.Surface = None
     ):
         self.name = name
         self.display_mode = display_mode
@@ -40,6 +43,9 @@ class Window:
         self.event_handlers = []
         self.objs = []
         self.keys = []
+
+        if icon:
+            pygame.display.set_icon(icon)
 
         def handler():
             self.running = False
