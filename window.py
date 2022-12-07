@@ -2,6 +2,7 @@ from typing import Union
 import pygame
 
 from objects import AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image
+from objects.custom import Triangle, Square
 
 from util import Dimension, Color, DisplayMode
 
@@ -17,7 +18,7 @@ class Window:
     display_mode: DisplayMode
     mouse: tuple[int, int]
     keys: [pygame.key]
-    objs: list[Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image]]
+    objs: list[Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image, Triangle, Square]]
 
     def __init__(
         self,
@@ -55,6 +56,9 @@ class Window:
                 break
 
             for obj in self.objs:
+                if hasattr(obj, 'draw'):
+                    obj.draw()
+
                 obj.display(self.screen, self.display_mode)
 
             self.clock.tick(self.fps)
@@ -64,9 +68,9 @@ class Window:
         pygame.mixer.quit()
         pygame.quit()
 
-    def addObj(self, obj: Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image]):
+    def addObj(self, obj: Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image, Triangle, Square]):
         self.objs.append(obj)
 
-    def addObjs(self, objs: list[Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text]]):
+    def addObjs(self, objs: list[Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image, Triangle, Square]]):
         for obj in objs:
             self.addObj(obj)

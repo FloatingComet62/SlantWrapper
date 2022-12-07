@@ -1,6 +1,6 @@
 from math import sin, cos
 from util import Side, Color, Position, Angle
-from ..polygon import Polygon
+from .. import Polygon
 
 class Triangle(Polygon):
     side_1: Side

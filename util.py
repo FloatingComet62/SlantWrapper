@@ -52,6 +52,9 @@ class Angle:
     def radian_to_deg(rad):
         return (rad * 180) / pi
 
+    def offset(self, degree: float):
+        self.degree += degree
+        self.radian = self.deg_to_radian(self.degree)
 
 class Position:
     x: float
