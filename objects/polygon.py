@@ -7,7 +7,7 @@ class Polygon:
     color: Color
     thickness: int
 
-    def __init__(self, positions: [Position], color: Color, thickness:int = 0):
+    def __init__(self, positions: [Position], color: Color, thickness: int = 0):
         self.positions = positions
         self.color = color
         self.thickness = thickness

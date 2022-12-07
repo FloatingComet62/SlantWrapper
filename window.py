@@ -6,6 +6,7 @@ from objects.custom import Triangle, Square
 
 from util import Dimension, Color, DisplayMode
 
+Objects: Union = Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image, Triangle, Square]
 
 class Window:
     name: str
@@ -18,7 +19,7 @@ class Window:
     display_mode: DisplayMode
     mouse: tuple[int, int]
     keys: [pygame.key]
-    objs: list[Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image, Triangle, Square]]
+    objs: list[Objects]
 
     def __init__(
         self,
@@ -68,9 +69,9 @@ class Window:
         pygame.mixer.quit()
         pygame.quit()
 
-    def addObj(self, obj: Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image, Triangle, Square]):
+    def addObj(self, obj: Objects):
         self.objs.append(obj)
 
-    def addObjs(self, objs: list[Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image, Triangle, Square]]):
+    def addObjs(self, objs: list[Objects]):
         for obj in objs:
             self.addObj(obj)

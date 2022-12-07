@@ -20,3 +20,4 @@ from .text import Text
 from .image import Image
 from .sound import Sound
 from .background_sound import BackgroundSound
+from custom import Triangle, Square
