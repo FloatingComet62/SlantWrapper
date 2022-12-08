@@ -6,6 +6,19 @@ from util import Dimension, Color, DisplayMode
 Objects: Union = Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image, Triangle, Square]
 
 
+def function():  # THIS IS A TYPE
+    pass
+
+
+class Handler:
+    event_type: int
+    handler: function
+
+    def __init__(self, event_type: int, handler: function):
+        self.event_type = event_type
+        self.handler = handler
+
+
 class Window:
     name: str
     icon: pygame.Surface
@@ -18,18 +31,18 @@ class Window:
     display_mode: DisplayMode
     mouse: tuple[int, int]
     events: list[pygame.event.Event]
-    event_handlers: list[tuple[int, ()]]
+    event_handlers: list[Handler]
     keys: [pygame.key]
     objs: list[Objects]
 
     def __init__(
-        self,
-        name: str,
-        display_mode: DisplayMode,
-        dimensions: Dimension,
-        background_color: Color = Color.from_hex("#151515"),
-        fps: int = 60,
-        icon: pygame.Surface = None
+            self,
+            name: str,
+            display_mode: DisplayMode,
+            dimensions: Dimension,
+            background_color: Color = Color.from_hex("#151515"),
+            fps: int = 60,
+            icon: pygame.Surface = None
     ):
         self.name = name
         self.display_mode = display_mode
@@ -49,12 +62,13 @@ class Window:
 
         def handler():
             self.running = False
+
         self.add_event_handler(pygame.QUIT, handler)
 
         pygame.mixer.init(44100, 16, 2, 4096)
         pygame.init()
 
-    def display(self, main):
+    def display(self, main: function):
         while self.running:
             self.pre_display()
 
@@ -75,8 +89,8 @@ class Window:
 
         for event in self.events:
             for handler in self.event_handlers:
-                if event.type == handler[0]:
-                    handler[1]()
+                if event.type == handler.event_type:
+                    handler.handler()
 
     def display_obj(self):
         for obj in self.objs:
@@ -97,7 +111,7 @@ class Window:
         for obj in objs:
             self.addObj(obj)
 
-    def add_event_handler(self, event_type: int, handler: ()):
+    def add_event_handler(self, event_type: int, handler: function):
         # We are not checking that if the handler is already in place to allow users to have isolated and
         # independent handlers for the same event if ever needed
-        self.event_handlers.append((event_type, handler))
+        self.event_handlers.append(Handler(event_type, handler))

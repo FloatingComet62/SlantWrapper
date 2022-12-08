@@ -20,17 +20,23 @@ class Rectangle(Polygon):
     vertex3: Position
     vertex4: Position
 
-    def __init__(self, position: Position, dimension: Dimension, color: Color):
+    def __init__(
+            self,
+            position: Position,
+            dimension: Dimension,
+            color: Color,
+            rotation: Angle = Angle(degree=0)
+    ):
         self.center = position
         self.dimension = dimension
-        self.rotation = Angle(degree=0)
-        self.diagonal_angle = Angle(
-            radian=atan(self.dimension.height / self.dimension.width)
-        )
+        self.rotation = rotation
         self.draw()
         super().__init__(self.positions, color)
 
     def draw(self):
+        self.diagonal_angle = Angle(
+            radian=atan(self.dimension.height / self.dimension.width)
+        )
         self.diagonal_length = sqrt(sqr(self.dimension.height) + sqr(self.dimension.width))
 
         def vertex_calculator(angle: Angle):
