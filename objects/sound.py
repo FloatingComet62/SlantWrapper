@@ -3,7 +3,7 @@ from pygame import mixer
 
 class Sound:
     """
-    WARNING: PYGAME SOUND SYSTEM IS SHIT
+    WARNING: PYGAME SOUND SYSTEM IS SHIT\n
     Pygame sound
     """
     name: str

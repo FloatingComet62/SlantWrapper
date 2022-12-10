@@ -4,7 +4,7 @@ from objects import Polygon
 from util import Color, Position, Dimension, Angle, DisplayMode
 
 
-def sqr(x): return x * x
+def _sqr(x): return x * x
 
 
 class Rectangle(Polygon):
@@ -41,7 +41,7 @@ class Rectangle(Polygon):
         self.diagonal_angle = Angle(
             radian=atan(self.dimension.height / self.dimension.width)
         )
-        self.diagonal_length = sqrt(sqr(self.dimension.height) + sqr(self.dimension.width))
+        self.diagonal_length = sqrt(_sqr(self.dimension.height) + _sqr(self.dimension.width))
 
         def vertex_calculator(angle: Angle):
             return Position(
