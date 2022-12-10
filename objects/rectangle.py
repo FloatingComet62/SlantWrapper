@@ -8,9 +8,13 @@ def sqr(x): return x * x
 
 
 class Rectangle(Polygon):
+    """ Rectangle """
     center: Position
+    """ Position of the rectangle [TOP LEFT VERTEX IN DisplayMode.CORNER] """
     dimension: Dimension
+    """ Dimensions of the rectangle """
     rotation: Angle
+    """ Rotation of the rectangle """
 
     diagonal_angle: Angle
     diagonal_length: float

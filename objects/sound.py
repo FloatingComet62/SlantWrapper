@@ -1,9 +1,13 @@
 from pygame import mixer
 
-# WARNING: PYGAME SOUND SYSTEM IS SHIT
+
 class Sound:
+    """
+    WARNING: PYGAME SOUND SYSTEM IS SHIT
+    Pygame sound
+    """
     name: str
-    loops: int
+    """ Soundtrack file location """
     handler: mixer.Sound
 
     def __init__(self, name: str, loops: int):

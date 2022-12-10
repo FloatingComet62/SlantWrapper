@@ -1,10 +1,15 @@
 from pygame import Surface, image, transform
 from util import Position, Dimension, DisplayMode
 
+
 class Image:
+    """ Pygame Image """
     position: Position
+    """ Position of the image """
     dimension: Dimension
+    """ Dimensions of the image """
     image: str
+    """ Image file location """
 
     def __init__(self, position: Position, dimension: Dimension, img: str):
         self.position = position

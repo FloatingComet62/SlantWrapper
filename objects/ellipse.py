@@ -4,8 +4,11 @@ from util import Color, Position, Dimension, DisplayMode
 
 
 class Ellipse(Base):
+    """ Pygame Ellipse """
     dimension: Dimension
+    """ Dimensions of the ellipse """
     thickness: int
+    """ Thickness of the ellipse """
 
     def __init__(self, position: Position, dimension: Dimension, color: Color, thickness: int = 0):
         super().__init__(position, color)

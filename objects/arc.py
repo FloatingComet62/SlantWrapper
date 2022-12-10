@@ -4,10 +4,15 @@ from util import Color, Position, Dimension, Angle, DisplayMode
 
 
 class Arc(Base):
+    """ Pygame Arc """
     dimension: Dimension
+    """ Dimensions of Arc """
     start_angle: Angle
+    """ Starting angle of Arc """
     stop_angle: Angle
+    """ Stopping angle of Arc """
     thickness: int
+    """ Thickness of the Arc """
 
     def __init__(
         self,

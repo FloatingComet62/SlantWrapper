@@ -3,9 +3,13 @@ from util import Position, Color, DisplayMode
 
 
 class Polygon:
+    """ Pygame polygon """
     positions: [Position]
+    """ Vertex Positions of the polygon """
     color: Color
+    """ Color of the polygon """
     thickness: int
+    """ Thickness of the polygon """
 
     def __init__(self, positions: [Position], color: Color, thickness: int = 0):
         self.positions = positions

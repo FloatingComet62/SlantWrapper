@@ -4,8 +4,11 @@ from util import Color, Position, DisplayMode
 
 
 class Circle(Base):
+    """ Pygame Circle """
     radius: float
+    """ Radius of the circle """
     thickness: int
+    """ Thickness of the circle """
 
     def __init__(self, position: Position, radius: float, color: Color, thickness: int = 0):
         super().__init__(position, color)

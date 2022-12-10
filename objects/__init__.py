@@ -1,8 +1,12 @@
 from util import Color, Position
 
+
 class Base:
+    """ Base Class for most entities """
     position: Position
+    """ Position of the object """
     color: Color
+    """ Color of the object """
 
     def __init__(self, position: Position, color: Color):
         self.position = position

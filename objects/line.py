@@ -3,10 +3,15 @@ from util import Color, Position, DisplayMode
 
 
 class Line:
+    """ Pygame Line """
     position1: Position
+    """ Starting position of the line """
     position2: Position
+    """ Ending position of the line """
     color: Color
+    """ Color of the line """
     thickness: int
+    """ Thickness of the line """
 
     def __init__(self, position1: Position, position2: Position, color: Color, thickness: int = 1):
         self.position1 = position1
