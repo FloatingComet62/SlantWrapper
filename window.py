@@ -18,6 +18,28 @@ class Handler:
         self.handler = handler
 
 
+class Scene:
+    name: str
+    """ Name of the scene """
+    background_color: Color
+    """ Background color of the window """
+    objs: list[Objects]
+
+    def __init__(self, name: str, background_color: Color):
+        self.name = name
+        self.background_color = background_color
+        self.objs = []
+
+    def add_obj(self, obj: Objects):
+        """ Register an object to be rendered """
+        self.objs.append(obj)
+
+    def add_objs(self, objs: list[Objects]):
+        """ Register multiple object to be rendered """
+        for obj in objs:
+            self.add_obj(obj)
+
+
 class Window:
     """ Pygame window manager """
     name: str
@@ -25,8 +47,6 @@ class Window:
     icon: pygame.Surface
     dimensions: Dimension
     """ Dimensions of the window """
-    background_color: Color
-    """ Background color of the window """
     screen: pygame.Surface
     clock: pygame.time
     fps: int
@@ -40,29 +60,28 @@ class Window:
     event_handlers: list[Handler]
     keys: [pygame.key]
     """ Keys currently pressed """
-    objs: list[Objects]
+    scenes: dict[str, Scene]
+    active_scene: Scene
 
     def __init__(
             self,
             name: str,
             display_mode: DisplayMode,
             dimensions: Dimension,
-            background_color: Color = Color.from_hex("#151515"),
             fps: int = 60,
             icon: pygame.Surface = None
     ):
         self.name = name
         self.display_mode = display_mode
         self.dimensions = dimensions
-        self.background_color = background_color
         self.screen = pygame.display.set_mode([dimensions.width, dimensions.height])
         self.clock = pygame.time.Clock()
         self.fps = fps
         self.running = True
         self.mouse = (0, 0)
         self.event_handlers = []
-        self.objs = []
         self.keys = []
+        self.scenes = {}
 
         if icon:
             pygame.display.set_icon(icon)
@@ -90,7 +109,7 @@ class Window:
         pygame.quit()
 
     def _pre_display(self):
-        self.screen.fill(self.background_color.toRGB())
+        self.screen.fill(self.active_scene.background_color.toRGB())
         self.events = pygame.event.get()
         self.mouse = pygame.mouse.get_pos()
         self.keys = pygame.key.get_pressed()
@@ -101,7 +120,7 @@ class Window:
                     handler.handler()
 
     def _display_obj(self):
-        for obj in self.objs:
+        for obj in self.active_scene.objs:
             if hasattr(obj, 'draw'):
                 obj.draw()
 
@@ -112,14 +131,17 @@ class Window:
         pygame.display.flip()
         pygame.display.set_caption(self.name)
 
-    def addObj(self, obj: Objects):
-        """ Register an object to be rendered """
-        self.objs.append(obj)
+    def add_scene(self, scene: Scene):
+        """ Register a scene for rendering """
+        self.scenes.update({scene.name: scene})
 
-    def addObjs(self, objs: list[Objects]):
-        """ Register multiple object to be rendered """
-        for obj in objs:
-            self.addObj(obj)
+    def set_active_scene(self, scene_name: str) -> bool:
+        scene = self.scenes.get(scene_name)
+        if not scene:
+            return False
+
+        self.active_scene = scene
+        return True
 
     def add_event_handler(self, event_type: int, handler: ()):
         """ Attach an event handler for a specific event """
