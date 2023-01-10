@@ -27,5 +27,3 @@ class Polygon:
             vertexes,
             self.thickness
         )
-
-

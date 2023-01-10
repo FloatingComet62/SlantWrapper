@@ -1,4 +1,5 @@
-from math import pi
+from math import radians, degrees
+from collections import namedtuple
 from enum import Enum
 
 
@@ -44,30 +45,20 @@ class Angle:
     def __init__(self, **kwargs):
         deg = kwargs.get("degree")
         rad = kwargs.get("radian")
-        if not deg is None:  # <<<<<
+        if deg is not None:  # <<<<<
             self.degree = deg
-            self.radian = self.deg_to_radian(deg)
-        elif not rad is None:  # <<<<<
+            self.radian = radians(deg)
+        elif rad is not None:  # <<<<<
             self.radian = rad
-            self.degree = self.radian_to_deg(rad)
+            self.degree = degrees(rad)
         else:
             print("Please specify either \"degree\" or \"radian\"")
             exit(1)
 
-    @staticmethod
-    def deg_to_radian(deg):
-        """ Convert Degree to Radian """
-        return (deg * pi) / 180
-
-    @staticmethod
-    def radian_to_deg(rad):
-        """ Convert Radian to Degree """
-        return (rad * 180) / pi
-
     def offset(self, degree: float):
         """ Offsets the value of angle """
         self.degree += degree
-        self.radian = self.deg_to_radian(self.degree)
+        self.radian = radians(degree)
         return self
 
     def offset_new(self, degree: float):
@@ -90,11 +81,6 @@ class Position:
         """ Convert to (x, y) """
         return self.x, self.y
 
-    @staticmethod
-    def from_tuple(tup: tuple[float, float]):
-        """ Make a Position from (x, y) """
-        return Position(tup[0], tup[1])
-
     def offset(self, *offset):
         """ Offsets the position """
         self.x += offset[0]
@@ -103,19 +89,10 @@ class Position:
 
     def offset_new(self, *offset):
         """ Returns a new position object with the offset """
-        return Position.from_tuple((self.x + offset[0], self.y + offset[1]))
+        return Position(self.x + offset[0], self.y + offset[1])
 
 
-class Dimension:
-    """ Dimension class """
-    width: float
-    """ Width """
-    height: float
-    """ Height """
-
-    def __init__(self, width: float, height: float):
-        self.width = width
-        self.height = height
+Dimension = namedtuple('Dimension', ['width', 'height'])
 
 
 class DisplayMode(Enum):

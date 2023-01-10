@@ -1,6 +1,7 @@
 from math import atan, sqrt, cos, sin
 from pygame import Surface
-from objects import Polygon
+
+from objects import Polygon, Circle
 from util import Color, Position, Dimension, Angle, DisplayMode
 
 
@@ -16,6 +17,8 @@ class Rectangle(Polygon):
     rotation: Angle
     """ Rotation of the rectangle """
 
+    positions: list[Position]
+    """ Position of each point """
     diagonal_angle: Angle
     diagonal_length: float
 
@@ -34,6 +37,7 @@ class Rectangle(Polygon):
         self.center = position
         self.dimension = dimension
         self.rotation = rotation
+        self.positions = []
         self.draw()
         super().__init__(self.positions, color)
 

@@ -91,6 +91,7 @@ class Window:
 
         self.add_event_handler(pygame.QUIT, handler)
 
+        pygame.display.set_caption(self.name)
         pygame.mixer.init(44100, 16, 2, 4096)
         pygame.init()
 
@@ -129,7 +130,6 @@ class Window:
     def _post_display(self):
         self.clock.tick(self.fps)
         pygame.display.flip()
-        pygame.display.set_caption(self.name)
 
     def add_scene(self, scene: Scene):
         """ Register a scene for rendering """

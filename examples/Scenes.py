@@ -23,8 +23,8 @@ def main():
     else:
         window.set_active_scene("Right")
 
-    rect.center = Position.from_tuple(window.mouse)
-    circ.position = Position.from_tuple(window.mouse)
+    rect.center = Position(*window.mouse)
+    circ.position = Position(*window.mouse)
     return True
 
 
