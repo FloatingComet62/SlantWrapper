@@ -1,5 +1,5 @@
 from math import radians, degrees
-from collections import namedtuple
+from dataclasses import dataclass
 from enum import Enum
 
 
@@ -92,7 +92,10 @@ class Position:
         return Position(self.x + offset[0], self.y + offset[1])
 
 
-Dimension = namedtuple('Dimension', ['width', 'height'])
+@dataclass
+class Dimension:
+    width: int
+    height: int
 
 
 class DisplayMode(Enum):

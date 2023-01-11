@@ -1,43 +1,13 @@
 import pygame
 from typing import Union
 from objects import AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image, Triangle, Square
-from util import Dimension, Color, DisplayMode
+from util import Dimension, DisplayMode
 
 Objects: Union = Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image, Triangle, Square]
 
-
-class Handler:
-    """ Event Handler """
-    event_type: int
-    """ A pygame event """
-    handler: ()
-    """ Handler function to be triggered when the event occurs """
-
-    def __init__(self, event_type: int, handler: ()):
-        self.event_type = event_type
-        self.handler = handler
-
-
-class Scene:
-    name: str
-    """ Name of the scene """
-    background_color: Color
-    """ Background color of the window """
-    objs: list[Objects]
-
-    def __init__(self, name: str, background_color: Color):
-        self.name = name
-        self.background_color = background_color
-        self.objs = []
-
-    def add_obj(self, obj: Objects):
-        """ Register an object to be rendered """
-        self.objs.append(obj)
-
-    def add_objs(self, objs: list[Objects]):
-        """ Register multiple object to be rendered """
-        for obj in objs:
-            self.add_obj(obj)
+from .scene import Scene
+from .handler import Handler
+from .recorder import Recorder
 
 
 class Window:
@@ -62,6 +32,7 @@ class Window:
     """ Keys currently pressed """
     scenes: dict[str, Scene]
     active_scene: Scene
+    recorder: Union[Recorder, None]
 
     def __init__(
             self,
@@ -82,14 +53,17 @@ class Window:
         self.event_handlers = []
         self.keys = []
         self.scenes = {}
+        self.recorder = None
 
         if icon:
             pygame.display.set_icon(icon)
 
-        def handler():
+        def end():
+            if self.recorder:
+                self.recorder.stop()
             self.running = False
 
-        self.add_event_handler(pygame.QUIT, handler)
+        self.add_event_handler(pygame.QUIT, end)
 
         pygame.display.set_caption(self.name)
         pygame.mixer.init(44100, 16, 2, 4096)
@@ -129,6 +103,17 @@ class Window:
 
     def _post_display(self):
         self.clock.tick(self.fps)
+
+        # Recorder
+        if self.recorder and self.recorder.writing:
+            frame_data = [[[0, 0, 0, 0]] * self.dimensions.height] * self.dimensions.width
+            # initialized blank to improve performance
+            for i in range(self.dimensions.width-1):
+                for j in range(self.dimensions.height-1):
+                    pixel: pygame.Color = self.screen.get_at((i, j))
+                    frame_data[i][j] = [pixel.r, pixel.g, pixel.b, pixel.a]  # RGBA
+
+            self.recorder.frame_data(frame_data)
         pygame.display.flip()
 
     def add_scene(self, scene: Scene):
@@ -143,8 +128,8 @@ class Window:
         self.active_scene = scene
         return True
 
-    def add_event_handler(self, event_type: int, handler: ()):
+    def add_event_handler(self, event_type: int, function: ()):
         """ Attach an event handler for a specific event """
         # We are not checking that if the handler is already in place to allow users to have isolated and
         # independent handlers for the same event if ever needed
-        self.event_handlers.append(Handler(event_type, handler))
+        self.event_handlers.append(Handler(event_type, function))
