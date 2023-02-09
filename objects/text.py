@@ -1,4 +1,3 @@
-from typing import Type
 from pygame import font, Surface
 from util import Position, Color, DisplayMode
 

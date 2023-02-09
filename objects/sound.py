@@ -10,12 +10,11 @@ class Sound:
     """ Soundtrack file location """
     handler: mixer.Sound
 
-    def __init__(self, name: str, loops: int):
+    def __init__(self, name: str):
         self.name = name
-        self.loops = loops
+        self.handler = mixer.Sound(self.name)
 
     def play(self, loops: int = 0, max_time: int = 0, fade_ms: int = 0):
-        self.handler = mixer.Sound(self.name)
         self.handler.play(loops, max_time, fade_ms)
 
     def stop(self):

@@ -7,7 +7,6 @@ Objects: Union = Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, T
 
 from .scene import Scene
 from .handler import Handler
-from .recorder import Recorder
 
 
 class Window:
@@ -32,7 +31,6 @@ class Window:
     """ Keys currently pressed """
     scenes: dict[str, Scene]
     active_scene: Scene
-    recorder: Union[Recorder, None]
 
     def __init__(
             self,
@@ -53,14 +51,11 @@ class Window:
         self.event_handlers = []
         self.keys = []
         self.scenes = {}
-        self.recorder = None
 
         if icon:
             pygame.display.set_icon(icon)
 
         def end():
-            if self.recorder:
-                self.recorder.stop()
             self.running = False
 
         self.add_event_handler(pygame.QUIT, end)
@@ -90,9 +85,9 @@ class Window:
         self.keys = pygame.key.get_pressed()
 
         for event in self.events:
-            for handler in self.event_handlers:
-                if event.type == handler.event_type:
-                    handler.handler()
+            for handle in self.event_handlers:
+                if event.type == handle.event_type:
+                    handle.handler()
 
     def _display_obj(self):
         for obj in self.active_scene.objs:
@@ -103,17 +98,6 @@ class Window:
 
     def _post_display(self):
         self.clock.tick(self.fps)
-
-        # Recorder
-        if self.recorder and self.recorder.writing:
-            frame_data = [[[0, 0, 0, 0]] * self.dimensions.height] * self.dimensions.width
-            # initialized blank to improve performance
-            for i in range(self.dimensions.width-1):
-                for j in range(self.dimensions.height-1):
-                    pixel: pygame.Color = self.screen.get_at((i, j))
-                    frame_data[i][j] = [pixel.r, pixel.g, pixel.b, pixel.a]  # RGBA
-
-            self.recorder.frame_data(frame_data)
         pygame.display.flip()
 
     def add_scene(self, scene: Scene):
@@ -121,11 +105,11 @@ class Window:
         self.scenes.update({scene.name: scene})
 
     def set_active_scene(self, scene_name: str) -> bool:
-        scene = self.scenes.get(scene_name)
+        new_scene = self.scenes.get(scene_name)
         if not scene:
             return False
 
-        self.active_scene = scene
+        self.active_scene = new_scene
         return True
 
     def add_event_handler(self, event_type: int, function: ()):

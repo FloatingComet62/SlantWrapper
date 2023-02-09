@@ -52,13 +52,12 @@ class Angle:
             self.radian = rad
             self.degree = degrees(rad)
         else:
-            print("Please specify either \"degree\" or \"radian\"")
-            exit(1)
+            raise ValueError("Please specify either \"degree\" or \"radian\"")
 
     def offset(self, degree: float):
         """ Offsets the value of angle """
         self.degree += degree
-        self.radian = radians(degree)
+        self.radian = radians(self.degree)
         return self
 
     def offset_new(self, degree: float):

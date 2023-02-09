@@ -4,5 +4,5 @@ from .. import Rectangle
 
 class Square(Rectangle):
     """ Square """
-    def __init__(self, position: Position, length: float, color: Color):
+    def __init__(self, position: Position, length: int, color: Color):
         super().__init__(position, Dimension(length, length), color)
