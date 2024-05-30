@@ -1,11 +1,11 @@
 from pygame import Surface, draw, Rect
 from objects import Base
-from util import Color, Position, Dimension, Angle, DisplayMode
+from util import Color, Vec, Angle, DisplayMode
 
 
 class Arc(Base):
     """ Pygame Arc """
-    dimension: Dimension
+    dimension: Vec
     """ Dimensions of Arc """
     start_angle: Angle
     """ Starting angle of Arc """
@@ -16,8 +16,8 @@ class Arc(Base):
 
     def __init__(
         self,
-        position: Position,
-        dimension: Dimension,
+        position: Vec,
+        dimension: Vec,
         start_angle: Angle,
         stop_angle: Angle,
         color: Color,
@@ -35,10 +35,10 @@ class Arc(Base):
             screen,
             self.color.toRGB(),
             Rect(
-                self.position.x - (self.dimension.width/2 if display_mode == DisplayMode.CENTER else 0),
-                self.position.y - (self.dimension.height/2 if display_mode == DisplayMode.CENTER else 0),
-                self.dimension.width,
-                self.dimension.height
+                self.position.x - (self.dimension.w/2 if display_mode == DisplayMode.CENTER else 0),
+                self.position.y - (self.dimension.h/2 if display_mode == DisplayMode.CENTER else 0),
+                self.dimension.w,
+                self.dimension.h
             ),
             self.start_angle.radian,
             self.stop_angle.radian,

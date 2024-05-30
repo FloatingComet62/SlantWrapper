@@ -1,11 +1,11 @@
 from pygame import Surface, draw
 from .line import Line
-from util import Position, Color, DisplayMode
+from util import Color, DisplayMode, Vec
 
 
 class AALine(Line):
     """ Pygame AALine """
-    def __init__(self, position1: Position, position2: Position, color: Color, thickness: int = 1):
+    def __init__(self, position1: Vec, position2: Vec, color: Color, thickness: int = 1):
         super().__init__(position1, position2, color, thickness)
 
     def display(self, screen: Surface, _: DisplayMode):

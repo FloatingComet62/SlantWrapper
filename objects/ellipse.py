@@ -1,16 +1,16 @@
 from pygame import Surface, draw, Rect
 from objects import Base
-from util import Color, Position, Dimension, DisplayMode
+from util import Color, DisplayMode, Vec
 
 
 class Ellipse(Base):
     """ Pygame Ellipse """
-    dimension: Dimension
+    dimension: Vec
     """ Dimensions of the ellipse """
     thickness: int
     """ Thickness of the ellipse """
 
-    def __init__(self, position: Position, dimension: Dimension, color: Color, thickness: int = 0):
+    def __init__(self, position: Vec, dimension: Vec, color: Color, thickness: int = 0):
         super().__init__(position, color)
 
         self.dimension = dimension
@@ -21,10 +21,10 @@ class Ellipse(Base):
             screen,
             self.color.toRGB(),
             Rect(
-                self.position.x - (self.dimension.width/2 if display_mode == DisplayMode.CENTER else 0),
-                self.position.y - (self.dimension.height/2 if display_mode == DisplayMode.CENTER else 0),
-                self.dimension.width,
-                self.dimension.height
+                self.position.x - (self.dimension.w/2 if display_mode == DisplayMode.CENTER else 0),
+                self.position.y - (self.dimension.h/2 if display_mode == DisplayMode.CENTER else 0),
+                self.dimension.w,
+                self.dimension.h
             ),
             self.thickness
         )

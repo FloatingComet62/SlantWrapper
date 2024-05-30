@@ -1,14 +1,14 @@
-from util import Color, Position
+from util import Color, Vec
 
 
 class Base:
     """ Base Class for most entities """
-    position: Position
+    position: Vec
     """ Position of the object """
     color: Color
     """ Color of the object """
 
-    def __init__(self, position: Position, color: Color):
+    def __init__(self, position: Vec, color: Color):
         self.position = position
         self.color = color
 

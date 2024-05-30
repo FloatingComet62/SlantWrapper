@@ -1,12 +1,12 @@
 from pygame import font, Surface
-from util import Position, Color, DisplayMode
+from util import Color, DisplayMode, Vec
 
 
 class Text:
     """ Pygame Text """
     string: str
     """ Text """
-    position: Position
+    position: Vec
     """ Position of the text """
     size: int
     """ Font size of the text """
@@ -18,7 +18,7 @@ class Text:
     def __init__(
         self,
         string: str,
-        position: Position,
+        position: Vec,
         size: int,
         color: Color,
         font_name: str = "freesansbold.ttf"
@@ -33,6 +33,6 @@ class Text:
         font_render = font.Font(self.font, self.size)
         text = font_render.render(self.string, True, self.color.toRGB())
         rect = text.get_rect()
-        rect.center = self.position.to_tuple()
+        rect.center = self.position.sep()
 
         screen.blit(text, rect)

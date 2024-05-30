@@ -65,19 +65,31 @@ class Angle:
         return Angle(degree=(self.degree + degree))
 
 
-class Position:
-    """ Position class """
+class Vec:
+    """A vector class"""
     x: float
-    """ X coordinate """
     y: float
-    """ Y coordinate """
-
-    def __init__(self, x: float, y: float):
+    a: float
+    b: float
+    w: float
+    h: float
+    def __init__(self, *args):
+        if len(args) == 1:
+            x = args[0][0]
+            y = args[0][1]
+        else:
+            x = args[0]
+            y = args[1]
         self.x = x
         self.y = y
 
-    def to_tuple(self):
-        """ Convert to (x, y) """
+        self.a = x
+        self.b = y
+
+        self.w = x
+        self.h = y
+    
+    def sep(self):
         return self.x, self.y
 
     def offset(self, *offset):
@@ -88,13 +100,7 @@ class Position:
 
     def offset_new(self, *offset):
         """ Returns a new position object with the offset """
-        return Position(self.x + offset[0], self.y + offset[1])
-
-
-@dataclass
-class Dimension:
-    width: int
-    height: int
+        return Vec(self.x + offset[0], self.y + offset[1])
 
 
 class DisplayMode(Enum):
@@ -106,14 +112,14 @@ class DisplayMode(Enum):
 
 class Side:
     """ A side of a custom polygon """
-    position: Position
+    position: Vec
     """ Position of the side (base point) """
     length: float
     """ Length of the side """
     angle: Angle
     """ Rotation of the side """
 
-    def __init__(self, position: Position = Position(0, 0), angle: Angle = Angle(degree=0), length: float = 0):
+    def __init__(self, position: Vec = Vec(0, 0), angle: Angle = Angle(degree=0), length: float = 0):
         self.position = position
         self.angle = angle
         self.length = length

@@ -1,7 +1,7 @@
 import pygame
 from typing import Union
 from objects import AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image, Triangle, Square
-from util import Dimension, DisplayMode
+from util import Vec, DisplayMode
 
 Objects: Union = Union[AALine, Arc, Circle, Ellipse, Line, Polygon, Rectangle, Text, Image, Triangle, Square]
 
@@ -14,7 +14,7 @@ class Window:
     name: str
     """ Caption of the window """
     icon: pygame.Surface
-    dimensions: Dimension
+    dimensions: Vec
     """ Dimensions of the window """
     screen: pygame.Surface
     clock: pygame.time
@@ -36,14 +36,14 @@ class Window:
             self,
             name: str,
             display_mode: DisplayMode,
-            dimensions: Dimension,
+            dimensions: Vec,
             fps: int = 60,
             icon: pygame.Surface = None
     ):
         self.name = name
         self.display_mode = display_mode
         self.dimensions = dimensions
-        self.screen = pygame.display.set_mode([dimensions.width, dimensions.height])
+        self.screen = pygame.display.set_mode([dimensions.w, dimensions.h])
         self.clock = pygame.time.Clock()
         self.fps = fps
         self.running = True
